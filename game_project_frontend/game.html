@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Battle Arena - Game Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .battle-area { display: none; } /* Sembunyikan arena saat awal */
+        .hp-bar-container { height: 20px; background: #ddd; border-radius: 5px; overflow: hidden; }
+        .hp-fill { height: 100%; transition: width 0.5s ease, background-color 0.5s; }
+        .log-box { height: 150px; overflow-y: auto; background: #f8f9fa; border: 1px solid #dee2e6; font-family: monospace; font-size: 0.9rem; }
+        
+        /* Efek getar saat kena damage */
+        .shake { animation: shake 0.5s; }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger mb-4 shadow">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">⚔️ Battle Arena</a>
+            <a href="index.html" class="btn btn-outline-light btn-sm">Kembali ke Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div id="selection-screen" class="row justify-content-center text-center mt-5">
+            <div class="col-md-8">
+                <div class="card bg-secondary text-white shadow-lg p-4">
+                    <h2 class="mb-4">Pilih Petarungmu!</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Hero Pemain</label>
+                            <select id="select-player" class="form-select text-center fw-bold"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Hero Lawan (CPU)</label>
+                            <select id="select-enemy" class="form-select text-center fw-bold"></select>
+                        </div>
+                    </div>
+                    <button id="start-btn" class="btn btn-warning btn-lg mt-4 fw-bold w-100">MULAI PERTARUNGAN!</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="battle-screen" class="battle-area">
+            <div class="row align-items-center">
+                
+                <div class="col-md-4 text-center">
+                    <div id="player-card" class="card bg-primary text-white p-3 shadow-lg border-0">
+                        <h3 id="player-name" class="fw-bold">Player</h3>
+                        <div class="hp-bar-container w-100 my-2 border border-light">
+                            <div id="player-hp-bar" class="hp-fill bg-success" style="width: 100%;"></div>
+                        </div>
+                        <h4 class="mb-0"><span id="player-current-hp">0</span> / <span id="player-max-hp">0</span> HP</h4>
+                    </div>
+                    <div class="mt-3">
+                        <h5>Pilih Skill:</h5>
+                        <div id="player-skills" class="d-grid gap-2">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 text-center py-3">
+                    <h1 class="display-1 fw-bold text-danger">VS</h1>
+                    <div id="battle-log" class="log-box text-start p-2 rounded text-dark mt-3">
+                        <div class="text-muted fst-italic">Pertarungan dimulai...</div>
+                    </div>
+                    <button id="restart-btn" class="btn btn-light mt-3 d-none">Main Lagi</button>
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <div id="enemy-card" class="card bg-danger text-white p-3 shadow-lg border-0">
+                        <h3 id="enemy-name" class="fw-bold">Enemy</h3>
+                        <div class="hp-bar-container w-100 my-2 border border-light">
+                            <div id="enemy-hp-bar" class="hp-fill bg-success" style="width: 100%;"></div>
+                        </div>
+                        <h4 class="mb-0"><span id="enemy-current-hp">0</span> / <span id="enemy-max-hp">0</span> HP</h4>
+                    </div>
+                    <div class="mt-3">
+                        <h5 class="text-muted">Aksi Lawan:</h5>
+                        <p id="enemy-action-text" class="fst-italic text-warning">Menunggu giliran...</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
